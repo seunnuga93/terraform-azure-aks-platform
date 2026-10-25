@@ -1,0 +1,27 @@
+# Checks skipped on purpose. Each one costs money or needs private networking,
+# which is out of scope for a reference platform. Revisit for real production use.
+skip-check:
+  # Private cluster / private endpoints: needs a jump box or VPN to reach the API.
+  # Mitigated with authorized IP ranges + firewall rules instead.
+  - CKV_AZURE_115
+  - CKV_AZURE_139
+  - CKV_AZURE_189
+  - CKV2_AZURE_32
+  # Customer-managed key disk encryption: needs a Disk Encryption Set + key rotation process.
+  - CKV_AZURE_117
+  - CKV_AZURE_227
+  # Paid SLA tier: enabled in prod via aks_sku_tier, Free in dev to save cost.
+  - CKV_AZURE_170
+  # Separate user node pool: single pool keeps the dev footprint small.
+  - CKV_AZURE_232
+  # Premium-only ACR features (geo-replication, zone redundancy, content trust,
+  # quarantine, retention, dedicated endpoints, Defender scanning).
+  - CKV_AZURE_163
+  - CKV_AZURE_164
+  - CKV_AZURE_165
+  - CKV_AZURE_166
+  - CKV_AZURE_167
+  - CKV_AZURE_233
+  - CKV_AZURE_237
+  # Purge protection is set from var.environment == "prod"; checkov can't evaluate that.
+  - CKV_AZURE_110
